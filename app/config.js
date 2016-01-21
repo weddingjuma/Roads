@@ -6,5 +6,11 @@ module.exports = {
     dbUrl:  "mongodb://" + process.env.IP +  "/TrafficEvents",
     
     //Scraper interval
-    interval: 3000
+    interval: 3000,
+    
+    //Google Geocoder API delay
+    geocodeDelay: 1000,
+    
+    //Google Geocoder API limit
+    geocodeLimit: 2
 }

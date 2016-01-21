@@ -4,7 +4,7 @@ var utils     = require("../utils");
 var Schema    = mongoose.Schema;
 
 var closedRoadSchema = new Schema({
-  nr:         Number,
+  nr:         String,
   DN:         String,
   positions:  String,
   between:    String,

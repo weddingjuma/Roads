@@ -5,12 +5,14 @@
 //TODO: Add logger
 var mongoose    = require("mongoose");
 var ClosedRoad  = require("./app/models/closedRoad");
+var SlowRoad    = require("./app/models/slowRoad");
 var scraper     = require("./app/scraper");             // Scrapes CNADNR page and parses tables
 var config      = require("./app/config");              // Server configuration props
 var express     = require("express");
 var app         = express();
 var bodyParser  = require("body-parser");
 var routes      = require("./app/routes");              // Express router setup
+var loader      = require("./app/loader");
 
 // ===================================================
 // Configuration
@@ -37,24 +39,13 @@ ClosedRoad.remove({}, function(err) {
   if (err) throw err;
 });
 
-// Returns parsed data from CNADNR for Closed roads
-// TODO: Return data for ALL types of events
-scraper(function(err, roadData) {       
-  if(err) throw err;
-  
-  var closedRoads = roadData.closedRoads.map(function(item) {
-    return new ClosedRoad({
-      nr:         item['Nr. crt.'],
-      DN:         item['DN'],
-      positions:  item['Pozitii kilometrice'],
-      between:    item['Intre localitatile'],
-      cause:      item['Cauza'],
-      measure:    item['Masuri de remediere si variante ocolitoare']
-    });
-  });
-  
-  ClosedRoad.create(closedRoads);
-  
+SlowRoad.remove({}, function(err) {  
+  if (err) throw err;
+});
+
+// Scrape data from CNADNR and insert in db
+loader(function() {
+  console.log("Data loading complete.");
 });
 
 

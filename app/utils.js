@@ -13,7 +13,13 @@ module.exports = {
     */
     geocode: function(place, callback) {
         request(geocodeUrl + place, function(err, res, html) {
+            
             var data = JSON.parse(html);
+            console.log(place + " -> " + data.status);
+            if (data.status != "OK") {
+                //.geometry.location.lat;
+                data.results.push({ "geometry" : { "location" : { "lat" : null, "lng" : null } } });
+            }
             callback(err, res, data);
         });
     },
