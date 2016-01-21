@@ -8,8 +8,11 @@ Real-time road events monitoring
 
 ## Usage
 - `GET /api/roads` Returns all road events information
-- `GET /api/roads/{name}` Returns events that begin or end in {name} locality
- 
+- `GET /api/closed-roads` Returns all closed roads
+- `GET /api/closed-roads/{name}` Returns closed roads that begin or end in {name} locality
+- `GET /api/slow-roads` Returns all slow roads
+- `GET /api/slow-roads/{name}` Returns slow roads that begin or end in {name} locality 
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
