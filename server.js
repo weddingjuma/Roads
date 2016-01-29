@@ -17,8 +17,8 @@ var loader      = require("./app/loader");
 // ===================================================
 // Configuration
 // ===================================================
-
-mongoose.connect(config.dbUrl);                           // Connect to MongoDB
+var mongodbConfig = config.mongodbConfig;
+mongoose.connect(mongodbConfig.url);                           // Connect to MongoDB
 
 app.use(bodyParser.urlencoded({extended: true}));         // Parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                               // Parse application/json

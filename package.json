@@ -13,6 +13,7 @@
     "cheerio": "latest",
     "async": "latest",
     "body-parser": "latest",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "mysql": "latest"
   }
 }
