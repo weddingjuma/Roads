@@ -1,10 +1,17 @@
 # Roads
 Real-time road events monitoring
 
+## Requirements
+- NodeJS
+- MySQL
+- MongoDB
+
 ## Installation
 1. Install dependencies `npm install`
 2. Start MongoDB `./mongod`
-3. Start node server `node server.js`
+3. Change MySQL configuration in `app/config.js` for your instance
+4. Load `dump.sql` in MySQL
+5. Start node server `node server.js`
 
 ## Usage
 - `GET /api/roads` Returns all road events information
