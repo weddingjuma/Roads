@@ -134,7 +134,7 @@ module.exports = {
                  }
             }
             else
-                console.log('Error while performing Query.');
+                console.log('Error while performing Query. -> ' + city);
         });
     }
 }

@@ -6,6 +6,7 @@
 var mongoose    = require("mongoose");
 var ClosedRoad  = require("./app/models/closedRoad");
 var SlowRoad    = require("./app/models/slowRoad");
+var WorkingRoad = require("./app/models/workingRoad");
 var scraper     = require("./app/scraper");             // Scrapes CNADNR page and parses tables
 var config      = require("./app/config");              // Server configuration props
 var express     = require("express");
@@ -40,6 +41,10 @@ ClosedRoad.remove({}, function(err) {
 });
 
 SlowRoad.remove({}, function(err) {  
+  if (err) throw err;
+});
+
+WorkingRoad.remove({}, function(err) {  
   if (err) throw err;
 });
 
