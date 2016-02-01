@@ -19,6 +19,8 @@ Real-time road events monitoring
 - `GET /api/closed-roads/{name}` Returns closed roads that begin or end in {name} locality
 - `GET /api/slow-roads` Returns all slow roads
 - `GET /api/slow-roads/{name}` Returns slow roads that begin or end in {name} locality 
+- `GET /api/working-roads` Returns all roads in work
+- `GET /api/working/roads/{name}` Returns roads in work that begin or end in {name} locality
 
 ## Contributing
 1. Fork it!
