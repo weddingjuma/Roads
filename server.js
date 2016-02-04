@@ -7,13 +7,13 @@ var mongoose    = require("mongoose");
 var ClosedRoad  = require("./app/models/closedRoad");
 var SlowRoad    = require("./app/models/slowRoad");
 var WorkingRoad = require("./app/models/workingRoad");
-var scraper     = require("./app/scraper");             // Scrapes CNADNR page and parses tables
 var config      = require("./app/config");              // Server configuration props
 var express     = require("express");
 var app         = express();
 var bodyParser  = require("body-parser");
 var routes      = require("./app/routes");              // Express router setup
 var loader      = require("./app/loader");
+var morgan      = require("morgan");
 
 // ===================================================
 // Configuration
@@ -21,6 +21,7 @@ var loader      = require("./app/loader");
 var mongodbConfig = config.mongodbConfig;
 mongoose.connect(mongodbConfig.url);                           // Connect to MongoDB
 
+app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));         // Parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                               // Parse application/json
 app.use(function(req, res, next) {                        // Enable CORS
