@@ -56,9 +56,9 @@ var counties = {
 
 module.exports = {
     /*  
-        Google Maps API geocoder
-        Transforms address in coordinates
-    */
+     *    Google Maps API geocoder
+     *   Transforms address in coordinates
+     */
     geocode: function(place, callback) {
         request(geocodeUrl + place, function(err, res, html) {
 
@@ -79,8 +79,8 @@ module.exports = {
     },
 
     /* 
-        Haversine formula to calculate distance between two geographical points
-    */
+     *   Haversine formula to calculate distance between two geographical points
+     */
     getDistance: function(p1, p2) {
         var R = 6378137; // Earth’s mean radius in meter
         var dLat = rad(p2.lat - p1.lat);
@@ -95,46 +95,49 @@ module.exports = {
 
     fields: ['nr', 'DN', 'positions', 'between', 'cause', 'measure'],
 
-
+    /*
+     *   Get coordinates for a city from the MySQL DB
+     *   If there are no results, it uses geocode function
+     */
     getCoords: function(place, callback) {
         var coords = {
             latitude: null,
             longitude: null
         };
-        
+
         if (!place.length) {
-            return(callback(coords));
+            return (callback(coords));
         }
 
         place = place.split(",");
-         if (place.length < 2) {
-            return(callback(coords));
+        if (place.length < 2) {
+            return (callback(coords));
         }
         var city = place[0];
         var county = place[1].trim();
-        
+
         var queryStmt = "select c.latitude, c.longitude from ro_cities c join admin_codes a on c.admin1_code = a.countycode where c.asciiname regexp '^" + city.replace(/ /g, ".") + "$' and a.name like '%" + counties[county] + "%'";
         connection.query(queryStmt, function(err, rows, fields) {
             if (!err) {
 
-                 if (!rows.length) {
-                     module.exports.geocode(place, function(err, res, data) {
-                         if (err) throw err;
-                         coords.latitude = data.results[0].geometry.location.lat;
-                         coords.longitude = data.results[0].geometry.location.lng;
+                if (!rows.length) {
+                    module.exports.geocode(place, function(err, res, data) {
+                        if (err) throw err;
+                        coords.latitude = data.results[0].geometry.location.lat;
+                        coords.longitude = data.results[0].geometry.location.lng;
 
-                         callback(coords);
-                     });
-                 }
-                 else {
-                     coords.latitude = rows[0].latitude;
-                     coords.longitude = rows[0].longitude;
+                        callback(coords);
+                    });
+                }
+                else {
+                    coords.latitude = rows[0].latitude;
+                    coords.longitude = rows[0].longitude;
 
-                     callback(coords);
-                 }
+                    callback(coords);
+                }
             }
             else
                 console.log('Error while performing Query. -> ' + city);
         });
     }
-}
+};

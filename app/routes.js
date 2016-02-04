@@ -1,8 +1,8 @@
-var router = require("express").Router();
-var ClosedRoad = require("./models/closedRoad");
-var SlowRoad = require("./models/slowRoad");
+var router      = require("express").Router();
+var ClosedRoad  = require("./models/closedRoad");
+var SlowRoad    = require("./models/slowRoad");
 var WorkingRoad = require("./models/workingRoad");
-var async = require("async");
+var async       = require("async");
 
 router.get("/", function(req, res) {
   res.json({

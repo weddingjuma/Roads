@@ -2,7 +2,6 @@
 // Application setup
 // ===================================================
 
-//TODO: Add logger
 var mongoose    = require("mongoose");
 var ClosedRoad  = require("./app/models/closedRoad");
 var SlowRoad    = require("./app/models/slowRoad");
