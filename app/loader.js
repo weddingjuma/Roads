@@ -25,7 +25,7 @@ function loader(callback) {
                
             },
             function(callback) {
-                 var slowRoads = roadData.slowRoads.map(function(item) {
+                var slowRoads = roadData.slowRoads.map(function(item) {
                     return new SlowRoad({
                         nr: item['Nr. crt.'],
                         DN: item['DN'],
@@ -41,7 +41,7 @@ function loader(callback) {
                
             },
             function(callback) {
-                 var workingRoads = roadData.workingRoads.map(function(item) {
+                var workingRoads = roadData.workingRoads.map(function(item) {
                     return new WorkingRoad({
                         nr: item['Nr. crt.'],
                         DN: item['DN'],

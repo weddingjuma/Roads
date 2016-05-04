@@ -1,52 +1,35 @@
-var config      = require("./config");
-var scraper     = require("./scraper");
-var ClosedRoad  = require("./models/closedRoad");
-var mongoose    = require("mongoose");
+var config  = require("./config");
+var request = require("request");
+var cheerio = require("cheerio");
+var loader  = require("./loader");
 
-mongoose.connect(config.dbUrl);
+var lastUpdate = "";
 
-setInterval(function() {
-    scraper(function(err, roadData) {
-        if (err) throw err;
+function scheduler() {
+    setInterval(function() {
 
-        var closedRoads = roadData.closedRoads.map(function(item) {
-            return new ClosedRoad({
-                nr: item['Nr. crt.'],
-                DN: item['DN'],
-                positions: item['Pozitii kilometrice'],
-                between: item['Intre localitatile'],
-                cause: item['Cauza'],
-                measure: item['Masuri de remediere si variante ocolitoare']
-            });
+        getLastPageUpdate(function(error, data) {
+            if (lastUpdate != data) {
+                lastUpdate = data;
+                console.log("New page update detected", data);
+                loader(function() {
+                    console.log("Data loading complete.");
+                });
+            }
         });
 
-        console.log(new Date());
-        closedRoads.forEach(function(el, idx) {
-            ClosedRoad.findOne({
-                nr: el.nr
-            }, function(err, road) {
-                if (err) throw err;
-                if (!road) {
-                    ClosedRoad.create(el);
-                    console.log(new Date() + ': New closed road added ' + el._id);
-                    return;
-                }
+    }, config.interval);
+}
 
-                if (el.DN != road.DN || el.positions != road.positions || el.between != road.between || el.cause != road.cause || el.measure != road.measure) {
-                    road.DN = el.DN;
-                    road.between = el.between;
-                    road.cause = el.cause;
-                    road.measure = el.measure;
+function getLastPageUpdate(callback) {
 
-                    road.save(function(err) {
-                        if (err) throw err;
+    request(config.URL, function(error, response, html) {
 
-                        console.log(new Date() + ': Closed road updated ' + road._id);
-                    });
-                    return;
-                }
-            });
-        });
+        var $ = cheerio.load(html);
+        var lastUpdate = $('h6').html();
+        callback(error, lastUpdate);
+
     });
+}
 
-}, config.interval);
+module.exports = scheduler;

@@ -12,6 +12,7 @@ var app         = express();
 var bodyParser  = require("body-parser");
 var routes      = require("./app/routes");              // Express router setup
 var loader      = require("./app/loader");
+var scheduler   = require("./app/scheduler");
 var morgan      = require("morgan");
 
 // ===================================================
@@ -49,9 +50,7 @@ WorkingRoad.remove({}, function(err) {
 });
 
 // Scrape data from CNADNR and insert in db
-loader(function() {
-  console.log("Data loading complete.");
-});
+scheduler();
 
 
 // ===================================================
