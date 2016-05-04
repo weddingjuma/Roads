@@ -1,7 +1,11 @@
-var config  = require("./config");
+var config = require("./config");
 var request = require("request");
 var cheerio = require("cheerio");
-var loader  = require("./loader");
+var loader = require("./loader");
+var ClosedRoad = require("./models/closedRoad");
+var SlowRoad = require("./models/slowRoad");
+var WorkingRoad = require("./models/workingRoad");
+var async = require("async");
 
 var lastUpdate = "";
 
@@ -12,8 +16,10 @@ function scheduler() {
             if (lastUpdate != data) {
                 lastUpdate = data;
                 console.log("New page update detected", data);
-                loader(function() {
-                    console.log("Data loading complete.");
+                clearOldData(function() {
+                    loader(function() {
+                        console.log("Data loading complete.");
+                    });
                 });
             }
         });
@@ -30,6 +36,34 @@ function getLastPageUpdate(callback) {
         callback(error, lastUpdate);
 
     });
+}
+
+function clearOldData(callback) {
+
+    async.parallel([
+        function(callback) {
+            ClosedRoad.remove({}, function(err) {
+                if (err) throw err;
+                callback();
+            });
+        },
+        function(callback) {
+            SlowRoad.remove({}, function(err) {
+                if (err) throw err;
+                callback();
+            });
+        },
+        function(callback0) {
+            WorkingRoad.remove({}, function(err) {
+                if (err) throw err;
+                callback();
+            });
+        }
+    ], function(err, res) {
+        if (err) throw err;
+        callback();
+    });
+
 }
 
 module.exports = scheduler;

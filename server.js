@@ -32,23 +32,6 @@ app.use(function(req, res, next) {                        // Enable CORS
 app.use("/api", routes);                                  // Routes setup
 
 
-// ===================================================
-// Development only - will be replaced by app/scheduler.js
-// ===================================================
-
-// Remove records when server starts
-ClosedRoad.remove({}, function(err) {  
-  if (err) throw err;
-});
-
-SlowRoad.remove({}, function(err) {  
-  if (err) throw err;
-});
-
-WorkingRoad.remove({}, function(err) {  
-  if (err) throw err;
-});
-
 // Scrape data from CNADNR and insert in db
 scheduler();
 
