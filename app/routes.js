@@ -109,7 +109,7 @@ router.get("/slow-roads", function(req, res) {
       if (err) throw err;
 
       var data = {
-        title: ClosedRoad.title(),
+        title: SlowRoad.title(),
         data: roads
       };
 

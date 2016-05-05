@@ -1,0 +1,28 @@
+{
+  "name": "Roads",
+  "version": "0.0.0",
+  "homepage": "https://github.com/radutatomir/Roads",
+  "authors": [
+    "radutatomir <tatomir.radu@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.5",
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.3",
+    "google-map": "~1.1.10",
+    "angular-ui-router": "~0.2.18"
+  }
+}

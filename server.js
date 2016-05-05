@@ -4,14 +4,11 @@
 
 var mongoose    = require("mongoose");
 var ClosedRoad  = require("./app/models/closedRoad");
-var SlowRoad    = require("./app/models/slowRoad");
-var WorkingRoad = require("./app/models/workingRoad");
 var config      = require("./app/config");              // Server configuration props
 var express     = require("express");
 var app         = express();
 var bodyParser  = require("body-parser");
 var routes      = require("./app/routes");              // Express router setup
-var loader      = require("./app/loader");
 var scheduler   = require("./app/scheduler");
 var morgan      = require("morgan");
 
@@ -21,7 +18,7 @@ var morgan      = require("morgan");
 var mongodbConfig = config.mongodbConfig;
 mongoose.connect(mongodbConfig.url);                           // Connect to MongoDB
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));         // Parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                               // Parse application/json
 app.use(function(req, res, next) {                        // Enable CORS
@@ -29,12 +26,14 @@ app.use(function(req, res, next) {                        // Enable CORS
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+app.use(express.static(__dirname + '/public'));
+app.get('/', function(req, res) {
+        res.sendfile('./public/index.html');              // load the single view file (angular will handle the page changes on the front-end)
+});
 app.use("/api", routes);                                  // Routes setup
-
 
 // Scrape data from CNADNR and insert in db
 scheduler();
-
 
 // ===================================================
 // Local server setup

@@ -1,0 +1,9 @@
+<div class="col-md-4">
+    <div class="panel" ng-class="{ 'panel-primary' : eventCtrl.type == 'slow', 'panel-danger' : eventCtrl.type == 'closed', 'panel-warning' : eventCtrl.type == 'inWork' }">
+        <div class="panel-heading">{{eventCtrl.title}}</div>
+        <div class="panel-body">
+            <div class="map" style="height: 300px"></div>
+        </div>
+        <div class="panel-footer">{{eventCtrl.data.between}}</div>
+    </div>
+</div>

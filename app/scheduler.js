@@ -1,11 +1,11 @@
-var config = require("./config");
-var request = require("request");
-var cheerio = require("cheerio");
-var loader = require("./loader");
-var ClosedRoad = require("./models/closedRoad");
-var SlowRoad = require("./models/slowRoad");
+var config      = require("./config");
+var request     = require("request");
+var cheerio     = require("cheerio");
+var loader      = require("./loader");
+var ClosedRoad  = require("./models/closedRoad");
+var SlowRoad    = require("./models/slowRoad");
 var WorkingRoad = require("./models/workingRoad");
-var async = require("async");
+var async       = require("async");
 
 var lastUpdate = "";
 
