@@ -4,6 +4,7 @@ var SlowRoad    = require("./models/slowRoad");
 var InWorkRoad = require("./models/inWorkRoad");
 var WeatherClosedRoad = require("./models/weatherClosedRoad");
 var WeatherSlowedRoad = require("./models/weatherSlowedRoad");
+var RoadEncoding = require("./models/roadEncoding");
 var async       = require("async");
 
 router.get("/", function(req, res) {
@@ -294,6 +295,57 @@ router.get("/in-work-roads/:place", function(req, res) {
     res.json(roads);
   });
 
+});
+
+router.get('/encoding', function(req, res) {
+  var query = req.query;
+  
+  var startPlace = {
+    lat : query['startPlace.lat'],
+    lng : query['startPlace.lng']
+  };
+  
+  var endPlace = {
+    lat : query['endPlace.lat'],
+    lng : query['endPlace.lng']
+  };
+  
+  if (endPlace.lat == null) {
+    //res.status(400).send('No end place coordinates');
+  } 
+
+  RoadEncoding
+    .find({
+      startPlace : {
+        lat : parseInt(startPlace.lat),
+        lng : parseInt(startPlace.lng)
+      },
+      endPlace : {
+        lat : parseInt(endPlace.lat),
+        lng : parseInt(endPlace.lng)
+      }
+    })
+    .exec(function(err, encoding) {
+      if (err) throw err;
+    
+      console.log(encoding);
+
+      res.json(encoding);
+    });
+});
+
+router.post('/encoding', function(req, res) {
+  var body = req.body;
+  
+  RoadEncoding.create({
+    startPlace : body.startPlace,
+    endPlace : body.endPlace,
+    polyline : body.polyline
+  }, function(err, encoding) {
+    console.log(err);
+    console.log(encoding);
+  });
+  
 });
 
 module.exports = router;
