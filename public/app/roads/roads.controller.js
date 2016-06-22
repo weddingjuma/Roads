@@ -7,15 +7,21 @@ angular.module('Roads').controller('RoadsController', ['RoadsService', '$scope',
     ctrl.slowRoads = [];
     ctrl.closedRoads = [];
     ctrl.roadsInWork = [];
+    ctrl.weatherSlowedRoads = [];
+    ctrl.weatherClosedRoads = [];
 
     ctrl.slowRoadsLimit = 6;
     ctrl.roadsInWorkLimit = 0;
     ctrl.closedRoadsLimit = 0;
+    ctrl.weatherSlowedRoadsLimit = 0;
+    ctrl.weatherClosedRoadsLimit = 0;
 
     RoadsService.roads().then(function(response) {
         ctrl.slowRoads = response.data.slowRoads.data;
         ctrl.roadsInWork = response.data.inWorkRoads.data;
         ctrl.closedRoads = response.data.closedRoads.data;
+        ctrl.weatherClosedRoads = response.data.weatherClosedRoads.data;
+        ctrl.weatherSlowedRoads = response.data.weatherSlowedRoads.data;
 
         ctrl.limits = [{
             current: ctrl.slowRoadsLimit,
@@ -26,6 +32,12 @@ angular.module('Roads').controller('RoadsController', ['RoadsService', '$scope',
         }, {
             current: ctrl.closedRoadsLimit,
             max: ctrl.closedRoads.length
+        }, {
+            current: ctrl.weatherClosedRoadsLimit,
+            max: ctrl.weatherClosedRoads.length
+        }, {
+            current: ctrl.weatherSlowedRoadsLimit,
+            max: ctrl.weatherSlowedRoads.length
         }];
     });
 

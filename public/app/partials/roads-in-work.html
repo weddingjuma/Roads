@@ -1,6 +1,6 @@
 <div class="row">
     <div ng-controller="RoadsInWorkController as roadsInWorkCtrl">
-        <road-event ng-repeat="roadInWork in roadsInWorkCtrl.roadsInWork" data="roadInWork" type="{{'inWork'}}"></road-event>
+        <road-event ng-repeat="roadInWork in roadsInWorkCtrl.roadsInWork | filter:mainCtrl.search" data="roadInWork" type="{{'inWork'}}"></road-event>
     </div>
 
 </div>
