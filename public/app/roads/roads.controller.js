@@ -14,7 +14,7 @@ angular.module('Roads').controller('RoadsController', ['RoadsService', '$scope',
 
     RoadsService.roads().then(function(response) {
         ctrl.slowRoads = response.data.slowRoads.data;
-        ctrl.roadsInWork = response.data.workingRoads.data;
+        ctrl.roadsInWork = response.data.inWorkRoads.data;
         ctrl.closedRoads = response.data.closedRoads.data;
 
         ctrl.limits = [{
