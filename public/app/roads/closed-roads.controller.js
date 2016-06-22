@@ -9,6 +9,10 @@ angular.module('Roads').controller('ClosedRoadsController', ['RoadsService', fun
     RoadsService.closedRoads().then(function(response) {
        ctrl.closedRoads = response.data.data;
     });
+    
+    RoadsService.weatherClosedRoads().then(function(response) {
+       ctrl.weatherClosedRoads = response.data.data;
+    });
 
 
 }]);

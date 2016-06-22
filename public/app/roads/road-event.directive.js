@@ -13,14 +13,16 @@ angular.module('Roads').directive('roadEvent', ['QueueRequestsService', function
                 slow: 'Drum cu circulatia ingreunata',
                 closed: 'Drum inchis',
                 inWork: 'Drum in lucru',
-                weatherSlowed: 'Vreme'
+                weatherSlowed: 'Drum cu circulatia ingreunata din cauza vremii',
+                weatherClosed: 'Drum inchis din cauza conditiilor meteo nefavorabile'
             };
 
             var colors = {
                 slow: '158cba',
                 closed: 'ff4136',
                 inWork: 'ff851b',
-                weatherSlowed: 'ff4136'
+                weatherSlowed: 'ff4136',
+                weatherClosed: 'ff4136'
             };
 
             ctrl.data = scope.data;

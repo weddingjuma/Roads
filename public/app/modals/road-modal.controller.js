@@ -5,7 +5,9 @@ angular.module('Roads').controller('RoadModalController', function($uibModalInst
     var titles = {
         slow: 'Drum cu circulatia ingreunata',
         closed: 'Drum inchis',
-        inWork: 'Drum in lucru'
+        inWork: 'Drum in lucru',
+        weatherClosed: 'Drum inchis din cauza conditiilor meteo nefavorabile',
+        weatherSlowed: 'Drum cu circulatia ingreunata din cauza conditiilor meteo nefavorabile'
     };
     ctrl.title = titles[type];
     ctrl.data = data;

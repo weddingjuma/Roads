@@ -1,5 +1,5 @@
 <div class="col-md-4">
-    <div class="panel" ng-class="{ 'panel-primary' : eventCtrl.type == 'slow', 'panel-danger' : eventCtrl.type == 'closed', 'panel-warning' : eventCtrl.type == 'inWork' }">
+    <div class="panel" ng-class="{ 'panel-primary' : eventCtrl.type == 'slow' || eventCtrl.type == 'weatherSlowed', 'panel-danger' : eventCtrl.type == 'closed' || eventCtrl.type == 'weatherClosed', 'panel-warning' : eventCtrl.type == 'inWork' }">
         <div class="panel-heading">{{eventCtrl.title}}</div>
         <div class="panel-body">
             <div class="map" style="height: 300px; display: none;"></div>
