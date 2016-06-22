@@ -11,7 +11,7 @@ angular.module('Roads').factory('RoadsService', ['$http', function($http) {
         return $http.get('/api/closed-roads');
     }
     var roadsInWork = function() {
-        return $http.get('/api/working-roads');
+        return $http.get('/api/in-work-roads');
     }
 
     var roads = function() {

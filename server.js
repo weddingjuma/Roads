@@ -3,7 +3,6 @@
 // ===================================================
 
 var mongoose    = require("mongoose");
-var ClosedRoad  = require("./app/models/closedRoad");
 var config      = require("./app/config");              // Server configuration props
 var express     = require("express");
 var app         = express();
@@ -52,24 +51,24 @@ var server = app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", f
 // ===================================================
 
 // TODO: Move to separate module!
-var io = require("socket.io")(server);
-io.set( 'origins', '*:*' );
+// var io = require("socket.io")(server);
+// io.set( 'origins', '*:*' );
 
-io.on('connection', function(socket) {
+// io.on('connection', function(socket) {
   
-  console.log(socket.id + " connected");
+//   console.log(socket.id + " connected");
   
-  socket.emit('welcome', {message: "welcome to node"});
+//   socket.emit('welcome', {message: "welcome to node"});
   
-  socket.on('position', function(coords) {
-    console.log(coords.lat + " | " + coords.lng);
+//   socket.on('position', function(coords) {
+//     console.log(coords.lat + " | " + coords.lng);
     
-    ClosedRoad.getNearby(coords, 100, function(arr) {
-     socket.emit("nearby", arr);
-    });
-  });
+//     ClosedRoad.getNearby(coords, 100, function(arr) {
+//     socket.emit("nearby", arr);
+//     });
+//   });
   
-  socket.on('disconnect', function(){
-    console.log(socket.id + ' disconnected');
-  });
-});
+//   socket.on('disconnect', function(){
+//     console.log(socket.id + ' disconnected');
+//   });
+// });

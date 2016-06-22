@@ -1,6 +1,6 @@
 /*global angular*/
 /*global google*/
-angular.module('Roads').factory('QueueRequestsService', ['$q', function($q) {
+angular.module('Roads').factory('QueueRequestsService', ['$q', '$http', function($q, $http) {
 
     var directionsService = new google.maps.DirectionsService;
     var queue = [];
@@ -14,22 +14,28 @@ angular.module('Roads').factory('QueueRequestsService', ['$q', function($q) {
             if (!!queue.length) {
                 var deferred = queue.shift();
                 var request = deferred.request;
-                 directionsService.route({
-                        origin: new google.maps.LatLng(request.startPlace.lat, request.startPlace.lng),
-                        destination: new google.maps.LatLng(request.endPlace.lat, request.endPlace.lng),
-                        travelMode: google.maps.TravelMode.DRIVING
-                    }, function(response, status) {
-                        if (status === google.maps.DirectionsStatus.OK) {
-                            deferred.resolve(response);
-                        } else {
-                            if (status === google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
-                               queue.push(deferred);
-                            } else {
-                                console.log(status);
-                                deferred.reject(response);
-                            }
-                        }
-                    });
+                
+                $http.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + request.startPlace.lat + ',' + request.startPlace.lng + '&destination=' + request.endPlace.lat + ',' + request.endPlace.lng + '&mode=driving', function(data) {
+                   console.log(data);
+                });
+                
+                
+                //  directionsService.route({
+                //         origin: new google.maps.LatLng(request.startPlace.lat, request.startPlace.lng),
+                //         destination: new google.maps.LatLng(request.endPlace.lat, request.endPlace.lng),
+                //         travelMode: google.maps.TravelMode.DRIVING
+                //     }, function(response, status) {
+                //         if (status === google.maps.DirectionsStatus.OK) {
+                //             deferred.resolve(response);
+                //         } else {
+                //             if (status === google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
+                //               queue.push(deferred);
+                //             } else {
+                //                 console.log(status);
+                //                 deferred.reject(response);
+                //             }
+                //         }
+                //     });
             } else {
                 clearInterval(interval);
                 interval = false;

@@ -12,7 +12,7 @@ function scrapeTables(callback) {
             weatherSlowedRoads: tabletojson.convert('<table>' + $('table').nextAll('table').html() + '</table>')[0],
             closedRoads:        tabletojson.convert('<table>' + $('table').nextAll('table').nextAll('table').html() + '</table>')[0],
             slowRoads:          tabletojson.convert('<table>' + $('table').nextAll('table').nextAll('table').nextAll('table').html() + '</table>')[0],
-            workingRoads:       tabletojson.convert('<table>' + $('table').nextAll('table').nextAll('table').nextAll('table').nextAll('table').html() + '</table>')[0]
+            inWorkRoads:        tabletojson.convert('<table>' + $('table').nextAll('table').nextAll('table').nextAll('table').nextAll('table').html() + '</table>')[0]
        };
             
         for (var key in roadData) {

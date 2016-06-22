@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ng-click="roadModalCtrl.close()">&times;</span></button>
+  <h4 class="modal-title">{{roadModalCtrl.title}}</h4>
+</div>
+<div class="modal-body">
+  <h4>{{roadModalCtrl.data.between}} <small>{{roadModalCtrl.data.positions}}</small></h4>
+  <div class="well">
+    <strong>Cauza:</strong>
+    <p>{{roadModalCtrl.data.cause}}</p>
+    <strong>Masura:</strong>
+    <p>{{roadModalCtrl.data.measure}}</p>
+    
+  </div>
+  <div id="road-modal-map" style="height: 400px;"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="roadModalCtrl.close()">Close</button>
+</div>

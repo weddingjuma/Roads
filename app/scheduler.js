@@ -4,7 +4,9 @@ var cheerio     = require("cheerio");
 var loader      = require("./loader");
 var ClosedRoad  = require("./models/closedRoad");
 var SlowRoad    = require("./models/slowRoad");
-var WorkingRoad = require("./models/workingRoad");
+var InWorkRoad = require("./models/inWorkRoad");
+var WeatherClosedRoad = require("./models/weatherClosedRoad");
+var WeatherSlowedRoad = require("./models/weatherSlowedRoad");
 var async       = require("async");
 
 var lastUpdate = "";
@@ -41,6 +43,18 @@ function getLastPageUpdate(callback) {
 function clearOldData(callback) {
 
     async.parallel([
+         function(callback) {
+            WeatherClosedRoad.remove({}, function(err) {
+                if (err) throw err;
+                callback();
+            });
+        },
+         function(callback) {
+            WeatherSlowedRoad.remove({}, function(err) {
+                if (err) throw err;
+                callback();
+            });
+        },
         function(callback) {
             ClosedRoad.remove({}, function(err) {
                 if (err) throw err;
@@ -54,7 +68,7 @@ function clearOldData(callback) {
             });
         },
         function(callback0) {
-            WorkingRoad.remove({}, function(err) {
+            InWorkRoad.remove({}, function(err) {
                 if (err) throw err;
                 callback();
             });

@@ -1,10 +1,10 @@
-<div class="row">
-    <div ng-controller="RoadsController as roadsCtrl">
-        <road-event ng-repeat="slowRoad in roadsCtrl.slowRoads" data="slowRoad" type="{{'slow'}}"></road-event>
+<div class="row"  ng-controller="RoadsController as roadsCtrl" >
+    <div scroll-callback="roadsCtrl.load()">
+        <road-event ng-repeat="slowRoad in roadsCtrl.slowRoads | limitTo: roadsCtrl.limits[0].current | filter:mainCtrl.search" data="slowRoad" type="{{'slow'}}"></road-event>
         <div class="inwork-roads">
-            <road-event ng-repeat="roadInWork in roadsCtrl.roadsInWork" data="roadInWork" type="{{'inWork'}}"></road-event>
+            <road-event ng-repeat="roadInWork in roadsCtrl.roadsInWork | limitTo: roadsCtrl.limits[1].current | filter:mainCtrl.search" data="roadInWork" type="{{'inWork'}}"></road-event>
         </div>
-        <road-event ng-repeat="closedRoad in roadsCtrl.closedRoads" data="closedRoad" type="{{'closed'}}"></road-event>
+        <road-event ng-repeat="closedRoad in roadsCtrl.closedRoads| limitTo: roadsCtrl.limits[2].current | filter:mainCtrl.search" data="closedRoad" type="{{'closed'}}"></road-event>
     </div>
 
 </div>

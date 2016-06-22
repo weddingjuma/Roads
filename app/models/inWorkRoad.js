@@ -2,7 +2,7 @@ var mongoose    = require("mongoose");
 var Schema      = mongoose.Schema;
 var modelUtils  = require("./modelUtils");
 
-var workingRoadSchema = new Schema({
+var inWorkRoadSchema = new Schema({
   nr: String,
   DN: String,
   positions: String,
@@ -21,12 +21,12 @@ var workingRoadSchema = new Schema({
   }
 });
 
-var WorkingRoad = mongoose.model('WorkingRoad', workingRoadSchema);
+var InWorkRoad = mongoose.model('InWorkRoad', inWorkRoadSchema);
 
-WorkingRoad.title = function() {
-  return 'Drumuri nationale si autostrazi pe care se efectueaza lucrari de reabilitari, modernizari, intretinere si reparatii';
+InWorkRoad.title = function() {
+  return 'Drumuri nationale si autostrazi cu circulatia ingreunata';
 };
 
-workingRoadSchema.pre('save', modelUtils.retrieveCoordsForLocations);
+inWorkRoadSchema.pre('save', modelUtils.retrieveCoordsForLocations);
 
-module.exports = WorkingRoad;
+module.exports = InWorkRoad;
