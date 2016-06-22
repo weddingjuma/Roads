@@ -6,15 +6,19 @@
   "repository": "",
   "author": "Radu Tatomir <tatomir.radu@gmail.com>",
   "dependencies": {
-    "tabletojson": "latest",
-    "mongoose": "latest",
-    "request": "latest",
-    "express": "latest",
-    "cheerio": "latest",
     "async": "latest",
     "body-parser": "latest",
-    "socket.io": "latest",
+    "cheerio": "latest",
+    "express": "latest",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "mongoose": "latest",
+    "morgan": "latest",
     "mysql": "latest",
-    "morgan": "latest"
+    "request": "latest",
+    "socket.io": "latest",
+    "tabletojson": "latest"
   }
 }
