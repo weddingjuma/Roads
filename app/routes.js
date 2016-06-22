@@ -300,50 +300,52 @@ router.get("/in-work-roads/:place", function(req, res) {
 router.get('/encoding', function(req, res) {
   var query = req.query;
   
-  var startPlace = {
-    lat : query['startPlace.lat'],
-    lng : query['startPlace.lng']
-  };
+  var startPlace = JSON.parse(req.query.startPlace);
   
-  var endPlace = {
-    lat : query['endPlace.lat'],
-    lng : query['endPlace.lng']
-  };
+  var endPlace = JSON.parse(req.query.endPlace);
   
-  if (endPlace.lat == null) {
-    //res.status(400).send('No end place coordinates');
-  } 
+  // var startPlace = {
+  //   lat : parseFloat(req.query['startPlace.lat']),
+  //   lng : parseFloat(req.query['startPlace.lng'])
+  // }
+  
+  // var endPlace = {
+  //   lat : parseFloat(req.query['endPlace.lat']),
+  //   lng : parseFloat(req.query['endPlace.lng'])
+  // }
+  
+  
+
+  // console.log(startPlace, endPlace);
 
   RoadEncoding
     .find({
-      startPlace : {
-        lat : parseInt(startPlace.lat),
-        lng : parseInt(startPlace.lng)
-      },
-      endPlace : {
-        lat : parseInt(endPlace.lat),
-        lng : parseInt(endPlace.lng)
-      }
+      
+      "endPlace" : { "lng" : endPlace.lng, "lat" : endPlace.lat }, "startPlace" : { "lng" : startPlace.lng, "lat" : startPlace.lat }
+      
     })
     .exec(function(err, encoding) {
       if (err) throw err;
     
-      console.log(encoding);
-
+      
       res.json(encoding);
+      
+      
     });
 });
 
 router.post('/encoding', function(req, res) {
   var body = req.body;
   
+  console.log('post ', req.body.startPlace, req.body.endPlace);
+  
   RoadEncoding.create({
     startPlace : body.startPlace,
     endPlace : body.endPlace,
     polyline : body.polyline
   }, function(err, encoding) {
-    console.log(err);
-    console.log(encoding);
+   // console.log(err);
+    //console.log(encoding);
   });
   
 });
