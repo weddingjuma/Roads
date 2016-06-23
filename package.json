@@ -14,9 +14,11 @@
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.0",
     "mongoose": "latest",
     "morgan": "latest",
     "mysql": "latest",
+    "phantomjs-prebuilt": "^2.1.7",
     "request": "latest",
     "socket.io": "latest",
     "tabletojson": "latest"

@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Wed Jun 22 2016 14:23:22 GMT+0000 (UTC)
+// Generated on Wed Jun 22 2016 14:36:29 GMT+0000 (UTC)
 
 module.exports = function(config) {
   config.set({
@@ -12,12 +12,18 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
-
     // list of files / patterns to load in the browser
     files: [
-      'public/app/test/**/*.js'
+      'public/bower_components/jquery/dist/jquery.js',
+      'public/bower_components/angular/angular.js',
+      'public/bower_components/angular-mocks/angular-mocks.js',
+      'public/bower_components/angular-resource/angular-resource.js',
+      'public/bower_components/bootstrap/dist/js/bootstrap.js',
+      'public/app/app.js',
+      'public/app/**/*.js',
+      'public/test/**/*.js'
     ],
-
+    
 
     // list of files to exclude
     exclude: [
@@ -55,7 +61,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
