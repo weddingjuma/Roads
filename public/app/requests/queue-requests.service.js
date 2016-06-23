@@ -5,8 +5,6 @@ angular.module('Roads').factory('QueueRequestsService', ['$q', '$http', function
     var directionsService = new google.maps.DirectionsService;
     var queue = [];
     var interval = false;
-    var requestCache = {};
-    
     
     var startInterval = function() {
         interval = setInterval(function() {
@@ -14,12 +12,7 @@ angular.module('Roads').factory('QueueRequestsService', ['$q', '$http', function
             if (!!queue.length) {
                 var deferred = queue.shift();
                 var request = deferred.request;
-                
-                // $http.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + request.startPlace.lat + ',' + request.startPlace.lng + '&destination=' + request.endPlace.lat + ',' + request.endPlace.lng + '&mode=driving', function(data) {
-                //   console.log(data);
-                // });
-                
-                
+                 
                  directionsService.route({
                         origin: new google.maps.LatLng(request.startPlace.lat, request.startPlace.lng),
                         destination: new google.maps.LatLng(request.endPlace.lat, request.endPlace.lng),
@@ -42,7 +35,7 @@ angular.module('Roads').factory('QueueRequestsService', ['$q', '$http', function
             }
             
         }, 0);
-    }
+    };
     
     var queueRequest = function(request) {
         var deferred = $q.defer();
@@ -54,12 +47,10 @@ angular.module('Roads').factory('QueueRequestsService', ['$q', '$http', function
         }
        
         return deferred.promise;
-    }
-
+    };
     
     return {
         queueRequest : queueRequest
     };
-
 
 }]);

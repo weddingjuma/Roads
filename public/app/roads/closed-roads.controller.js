@@ -15,7 +15,7 @@ angular.module('Roads').controller('ClosedRoadsController', ['RoadsService', fun
         RoadsService.weatherClosedRoads().then(function(response) {
             ctrl.weatherClosedRoads = response.data.data;
         });
-    }
+    };
 
     
     ctrl.init();

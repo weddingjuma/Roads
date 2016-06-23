@@ -67,6 +67,6 @@ angular.module('Roads').controller('RoadEventController', function($uibModal) {
             });
         });
         
-    }
+    };
 
 });

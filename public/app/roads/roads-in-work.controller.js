@@ -10,7 +10,7 @@ angular.module('Roads').controller('RoadsInWorkController', ['RoadsService', fun
         RoadsService.roadsInWork().then(function(response) {
             ctrl.roadsInWork = response.data.data;
         });
-    }
+    };
 
     ctrl.init();
 

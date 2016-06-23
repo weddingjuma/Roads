@@ -47,7 +47,7 @@ angular.module('Roads').controller('RoadsController', ['RoadsService', '$scope',
                 max: ctrl.weatherSlowedRoads.length
             }];
         });
-    }
+    };
 
     ctrl.init();
 
@@ -64,7 +64,7 @@ angular.module('Roads').controller('RoadsController', ['RoadsService', '$scope',
             }
 
         }
-    }
+    };
 
 
 }]);

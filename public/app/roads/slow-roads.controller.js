@@ -14,8 +14,7 @@ angular.module('Roads').controller('SlowRoadsController', ['RoadsService', funct
         RoadsService.weatherSlowedRoads().then(function(response) {
             ctrl.weatherSlowedRoads = response.data.data;
         });
-    }
+    };
 
     ctrl.init();
-
 }]);

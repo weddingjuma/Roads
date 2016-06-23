@@ -1,3 +1,4 @@
+/*global angular, windowBottom*/
 angular.module('Roads').directive('scrollCallback', function($window) {
     return {
         scope: {
@@ -14,8 +15,6 @@ angular.module('Roads').directive('scrollCallback', function($window) {
                     scope.callbackFn();
                 }
             });
-
-            
         }
-    }
+    };
 });
