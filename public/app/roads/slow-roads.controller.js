@@ -6,12 +6,16 @@ angular.module('Roads').controller('SlowRoadsController', ['RoadsService', funct
     ctrl.slowRoads = [];
     ctrl.weatherSlowedRoads = [];
 
-    RoadsService.slowRoads().then(function(response) {
-       ctrl.slowRoads = response.data.data;
-    });
-    
-    RoadsService.weatherSlowedRoads().then(function(response) {
-       ctrl.weatherSlowedRoads = response.data.data;
-    });
+    ctrl.init = function() {
+        RoadsService.slowRoads().then(function(response) {
+            ctrl.slowRoads = response.data.data;
+        });
+
+        RoadsService.weatherSlowedRoads().then(function(response) {
+            ctrl.weatherSlowedRoads = response.data.data;
+        });
+    }
+
+    ctrl.init();
 
 }]);

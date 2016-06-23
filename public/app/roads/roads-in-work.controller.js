@@ -5,9 +5,13 @@ angular.module('Roads').controller('RoadsInWorkController', ['RoadsService', fun
     var ctrl = this;
     ctrl.roadsInWork = [];
 
-    RoadsService.roadsInWork().then(function(response) {
-       ctrl.roadsInWork = response.data.data;
-    });
 
+    ctrl.init = function() {
+        RoadsService.roadsInWork().then(function(response) {
+            ctrl.roadsInWork = response.data.data;
+        });
+    }
+
+    ctrl.init();
 
 }]);

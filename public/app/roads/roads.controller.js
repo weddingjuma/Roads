@@ -47,7 +47,7 @@ angular.module('Roads').controller('RoadsController', ['RoadsService', '$scope',
             if ( ctrl.limits[i].current >= ctrl.limits[i].max ) {
                 continue;
             }
-            ctrl.limits[i].current += 3;
+            ctrl.limits[i].current += 6;
             $scope.$apply();
             if (ctrl.limits[i].current <= ctrl.limits[i].max) {
                 break;

@@ -5,14 +5,19 @@ angular.module('Roads').controller('ClosedRoadsController', ['RoadsService', fun
     var ctrl = this;
     ctrl.closedRoads = [];
     ctrl.weatherClosedRoads = [];
-    
-    RoadsService.closedRoads().then(function(response) {
-       ctrl.closedRoads = response.data.data;
-    });
-    
-    RoadsService.weatherClosedRoads().then(function(response) {
-       ctrl.weatherClosedRoads = response.data.data;
-    });
 
+    ctrl.init = function() {
 
+        RoadsService.closedRoads().then(function(response) {
+            ctrl.closedRoads = response.data.data;
+        });
+
+        RoadsService.weatherClosedRoads().then(function(response) {
+            ctrl.weatherClosedRoads = response.data.data;
+        });
+    }
+
+    
+    ctrl.init();
+    
 }]);
