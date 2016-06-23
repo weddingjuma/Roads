@@ -19,7 +19,8 @@ var closedRoadSchema = new Schema({
     name:   String,
     lat:    Number,
     lng:    Number
-  }
+  },
+  polyline : String
 });
 
 var ClosedRoad = mongoose.model('ClosedRoad', closedRoadSchema);

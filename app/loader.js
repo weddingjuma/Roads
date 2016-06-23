@@ -1,13 +1,99 @@
-var scraper     = require("./scraper");
-var ClosedRoad  = require("./models/closedRoad");
-var SlowRoad    = require("./models/slowRoad");
+var scraper = require("./scraper");
+var ClosedRoad = require("./models/closedRoad");
+var SlowRoad = require("./models/slowRoad");
 var WeatherClosedRoad = require("./models/weatherClosedRoad");
 var WeatherSlowedRoad = require("./models/weatherSlowedRoad");
 var InWorkRoad = require("./models/inWorkRoad");
-var async       = require("async");
+var async = require("async");
+var request = require("request");
+
+
+function requestAndUpdate(results, time, callback) {
+    var interval = setInterval(function() {
+        var res = results.shift();
+        var url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' + res.startPlace.lat + ',' + res.startPlace.lng + '&destination=' + res.endPlace.lat + ',' + res.endPlace.lng + '&mode=driving';
+        request(url, function(error, response, body) {
+            console.log(res.startPlace, res.endPlace);
+            var data = JSON.parse(body);
+            console.log(data.status);
+            if (data.status == 'OK') {
+                res.polyline = data.routes[0].overview_polyline.points;
+                res.save();
+            }
+
+            if (data.status == 'OVER_QUERY_LIMIT') {
+                console.log("retrying");
+                results.push(res);
+            }
+        });
+        if (!results.length) {
+            clearInterval(interval);
+            callback();
+        }
+    }, time);
+}
+
+function encodePolylines(callback) {
+    var time = 210;
+    async.series([
+        function(callback) {
+            ClosedRoad
+                .find({})
+                .exec(function(err, results) {
+                    if (err) {
+                        callback(err);
+                    }
+                    requestAndUpdate(results, time, callback);
+                });
+        },
+        function(callback) {
+            SlowRoad
+                .find({})
+                .exec(function(err, results) {
+                    if (err) {
+                        callback(err);
+                    }
+                    requestAndUpdate(results, time, callback);
+                });
+        },
+        function(callback) {
+            InWorkRoad
+                .find({})
+                .exec(function(err, results) {
+                    if (err) {
+                        callback(err);
+                    }
+                    requestAndUpdate(results, time, callback);
+                });
+        },
+        function(callback) {
+            WeatherClosedRoad
+                .find({})
+                .exec(function(err, results) {
+                    if (err) {
+                        callback(err);
+                    }
+                    requestAndUpdate(results, time, callback);
+                });
+        },
+        function(callback) {
+            WeatherSlowedRoad
+                .find({})
+                .exec(function(err, results) {
+                    if (err) {
+                        callback(err);
+                    }
+                    requestAndUpdate(results, time, callback);
+                });
+        }
+    ], function(err) {
+        callback(err);
+    });
+
+}
 
 function loader(callback) {
-     scraper(function(err, roadData) {
+    scraper(function(err, roadData) {
         if (err) throw err;
         async.series([
             function(callback) {
@@ -54,23 +140,23 @@ function loader(callback) {
                 ClosedRoad.create(closedRoads, function(err) {
                     callback(err);
                 });
-               
+
             },
-             function(callback) {
+            function(callback) {
                 var inWorkRoads = roadData.inWorkRoads.map(function(item) {
                     return new InWorkRoad({
                         nr: item['Nr. crt.'],
                         DN: item['DN'],
                         positions: item['Pozitii kilometrice'],
                         between: item['Intre localitatile'],
-                        workType: item['Tip lucrare / Perioada'],
-                        finishDate: item['Termen de finalizare si variante ocolitoare']
+                        cause: item['Tip lucrare / Perioada'],
+                        measure: item['Termen de finalizare si variante ocolitoare']
                     });
                 });
                 InWorkRoad.create(inWorkRoads, function(err) {
                     callback(err);
                 });
-               
+
             },
             function(callback) {
                 var slowRoads = roadData.slowRoads.map(function(item) {
@@ -86,10 +172,13 @@ function loader(callback) {
                 SlowRoad.create(slowRoads, function(err) {
                     callback(err);
                 });
-               
+
+            },
+            function(callback) {
+                encodePolylines(callback);
             }
         ], function(err) {
-           callback(err);
+            callback(err);
         });
     });
 }

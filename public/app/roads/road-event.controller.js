@@ -39,6 +39,14 @@ angular.module('Roads').controller('RoadEventController', function($uibModal) {
             });
             directionsDisplay.setMap(map);
             
+            if (!data.startPlace.lat) {
+                data.startPlace = data.endPlace;
+            }
+            
+            if (!data.endPlace.lat) {
+                data.endPlace = data.startPlace;
+            }
+            
             directionsService.route({
                 origin: new google.maps.LatLng({
                     lat: data.startPlace.lat,

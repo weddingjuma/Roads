@@ -18,7 +18,8 @@ var weatherSlowedRoadSchema = new Schema({
     name: String,
     lat: Number,
     lng: Number
-  }
+  },
+  polyline: String
 });
 
 var WeatherSlowedRoad = mongoose.model('WeatherSlowedRoad', weatherSlowedRoadSchema);

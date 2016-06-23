@@ -7,8 +7,8 @@ var inWorkRoadSchema = new Schema({
   DN: String,
   positions: String,
   between: String,
-  workType: String,
-  finishDate: String,
+  cause: String,
+  measure: String,
   startPlace: {
     name: String,
     lat: Number,
@@ -18,7 +18,8 @@ var inWorkRoadSchema = new Schema({
     name: String,
     lat: Number,
     lng: Number
-  }
+  },
+  polyline: String
 });
 
 var InWorkRoad = mongoose.model('InWorkRoad', inWorkRoadSchema);

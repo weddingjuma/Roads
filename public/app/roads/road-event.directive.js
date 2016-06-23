@@ -47,48 +47,58 @@ angular.module('Roads').directive('roadEvent', ['QueueRequestsService', 'Encodin
                 else {
 
                     var color = colors[scope.type];
-                    ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "&zoom=11&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.endPlace.lng;
+                    ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "&zoom=10&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.endPlace.lng;
 
                 }
             }
+            
+            if (!request.startPlace.lat || !request.endPlace.lat) {
+                var place = request.startPlace.lat ? request.startPlace : request.endPlace;
+                ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "&zoom=10&markers=color:0x" + color + "%7Clabel:A%7C" + place.lat + "," + place.lng;
+            }
+            
+            
             else {
-                EncodingService.getEncoding(request).then(function success(response) {
-                    if (!response.data.length) {
-                        EncodingService.createEncoding(request).then(function(response) {
-                            console.log('encoding created', response);
-                        });
-                        QRService.queueRequest(request).then(function success(response) {
-
-                            var color = colors[scope.type];
-                            ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "%7Cenc:" + response.routes[0].overview_polyline + "&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.startPlace.lng + "&markers=color:0x" + color + "%7Clabel:B%7C" + request.endPlace.lat + "," + request.endPlace.lng;
+                 var color = colors[scope.type];
+                 ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "%7Cenc:" + request.polyline + "&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.startPlace.lng + "&markers=color:0x" + color + "%7Clabel:B%7C" + request.endPlace.lat + "," + request.endPlace.lng;
                             
-                            request.polyline = response.routes[0].overview_polyline;
+                // EncodingService.getEncoding(request).then(function success(response) {
+                //     if (!response.data.length) {
+                //         EncodingService.createEncoding(request).then(function(response) {
+                //             console.log('encoding created', response);
+                //         });
+                //         QRService.queueRequest(request).then(function success(response) {
+
+                //             var color = colors[scope.type];
+                //             ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "%7Cenc:" + response.routes[0].overview_polyline + "&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.startPlace.lng + "&markers=color:0x" + color + "%7Clabel:B%7C" + request.endPlace.lat + "," + request.endPlace.lng;
                             
-                        }, function error(response) {
+                //             request.polyline = response.routes[0].overview_polyline;
+                            
+                //         }, function error(response) {
 
-                            if (request.startPlace.lat || request.endPlace.lat) {
-                                var place = request.startPlace.lat ? request.startPlace : request.endPlace;
-                                var center = {
-                                    lat: place.lat,
-                                    lng: place.lng
-                                };
+                //             if (request.startPlace.lat || request.endPlace.lat) {
+                //                 var place = request.startPlace.lat ? request.startPlace : request.endPlace;
+                //                 var center = {
+                //                     lat: place.lat,
+                //                     lng: place.lng
+                //                 };
 
-                                var color = colors[scope.type];
-                                ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "&zoom=11&markers=color:0x" + color + "%7Clabel:A%7C" + place.lat + "," + place.lng;
+                //                 var color = colors[scope.type];
+                //                 ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "&zoom=11&markers=color:0x" + color + "%7Clabel:A%7C" + place.lat + "," + place.lng;
 
-                            }
-                            else {
-                                elem.empty();
-                            }
-                        });
-                    } else {
-                        console.log(response);
-                         var color = colors[scope.type];
-                            ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "%7Cenc:" + response.data[0].polyline + "&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.startPlace.lng + "&markers=color:0x" + color + "%7Clabel:B%7C" + request.endPlace.lat + "," + request.endPlace.lng;
+                //             }
+                //             else {
+                //                 elem.empty();
+                //             }
+                //         });
+                //     } else {
+                //         console.log(response);
+                //          var color = colors[scope.type];
+                //             ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "%7Cenc:" + response.data[0].polyline + "&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.startPlace.lng + "&markers=color:0x" + color + "%7Clabel:B%7C" + request.endPlace.lat + "," + request.endPlace.lng;
                             
                         
-                    }
-                });
+                //     }
+                // });
 
 
             }

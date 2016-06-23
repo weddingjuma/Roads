@@ -18,7 +18,8 @@ var slowRoadSchema = new Schema({
     name: String,
     lat: Number,
     lng: Number
-  }
+  },
+  polyline: String
 });
 
 var SlowRoad = mongoose.model('SlowRoad', slowRoadSchema);
