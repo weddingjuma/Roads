@@ -17,7 +17,7 @@ module.exports = {
     geocodeLimit : 2,
     
     //Milliseconds between API requests
-    apiRequestDelay : 210,
+    apiRequestDelay : 250,
     
     //MySQL configuration object
     mysqlConfig : {

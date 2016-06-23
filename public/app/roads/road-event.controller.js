@@ -54,7 +54,7 @@ angular.module('Roads').controller('RoadEventController', function($uibModal) {
                 }),
                 destination: new google.maps.LatLng({
                     lat: data.endPlace.lat,
-                    lng: data.startPlace.lng
+                    lng: data.endPlace.lng
                 }),
                 travelMode: google.maps.TravelMode.DRIVING
             }, function(response, status) {

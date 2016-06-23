@@ -20,8 +20,8 @@ angular.module('Roads').directive('roadEvent', ['QueueRequestsService', 'Encodin
             var colors = {
                 slow: '158cba',
                 closed: 'ff4136',
-                inWork: 'ff851b',
-                weatherSlowed: 'ff4136',
+                inWork: 'FF530D',
+                weatherSlowed: '158cba',
                 weatherClosed: 'ff4136'
             };
 
