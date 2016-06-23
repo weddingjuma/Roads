@@ -10,7 +10,6 @@ describe('RoadsController', function() {
 
         inject(function($injector) {
             $rootScope = $injector.get('$rootScope');
-            // $scope = $rootScope.$new();
             $scope = {
                 $apply : function() {}
             };

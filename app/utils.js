@@ -1,7 +1,7 @@
-var request = require("request");
-var mysql = require("mysql");
+var request     = require("request");
+var mysql       = require("mysql");
 var mysqlConfig = require("./config").mysqlConfig;
-var connection = mysql.createConnection(mysqlConfig);
+var connection  = mysql.createConnection(mysqlConfig);
 
 
 var rad = function(x) {

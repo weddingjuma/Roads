@@ -6,6 +6,7 @@ var WeatherSlowedRoad = require("./models/weatherSlowedRoad");
 var InWorkRoad = require("./models/inWorkRoad");
 var async = require("async");
 var request = require("request");
+var config = require("./config");
 
 
 function requestAndUpdate(results, time, callback) {
@@ -20,7 +21,6 @@ function requestAndUpdate(results, time, callback) {
                 res.polyline = data.routes[0].overview_polyline.points;
                 res.save();
             }
-
             if (data.status == 'OVER_QUERY_LIMIT') {
                 console.log("retrying");
                 results.push(res);
@@ -34,7 +34,7 @@ function requestAndUpdate(results, time, callback) {
 }
 
 function encodePolylines(callback) {
-    var time = 210;
+    var time = config.apiRequestDelay;
     async.series([
         function(callback) {
             ClosedRoad
@@ -89,7 +89,6 @@ function encodePolylines(callback) {
     ], function(err) {
         callback(err);
     });
-
 }
 
 function loader(callback) {
@@ -140,7 +139,6 @@ function loader(callback) {
                 ClosedRoad.create(closedRoads, function(err) {
                     callback(err);
                 });
-
             },
             function(callback) {
                 var inWorkRoads = roadData.inWorkRoads.map(function(item) {
@@ -156,7 +154,6 @@ function loader(callback) {
                 InWorkRoad.create(inWorkRoads, function(err) {
                     callback(err);
                 });
-
             },
             function(callback) {
                 var slowRoads = roadData.slowRoads.map(function(item) {
@@ -172,7 +169,6 @@ function loader(callback) {
                 SlowRoad.create(slowRoads, function(err) {
                     callback(err);
                 });
-
             },
             function(callback) {
                 encodePolylines(callback);

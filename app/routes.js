@@ -1,15 +1,17 @@
-var router      = require("express").Router();
-var ClosedRoad  = require("./models/closedRoad");
-var SlowRoad    = require("./models/slowRoad");
-var InWorkRoad = require("./models/inWorkRoad");
+var router            = require("express").Router();
+var ClosedRoad        = require("./models/closedRoad");
+var SlowRoad          = require("./models/slowRoad");
+var InWorkRoad        = require("./models/inWorkRoad");
 var WeatherClosedRoad = require("./models/weatherClosedRoad");
 var WeatherSlowedRoad = require("./models/weatherSlowedRoad");
-var RoadEncoding = require("./models/roadEncoding");
-var async       = require("async");
+var RoadEncoding      = require("./models/roadEncoding");
+var async             = require("async");
+var config            = require("./config");
 
 router.get("/", function(req, res) {
   res.json({
-    status: 'working'
+    status: 'working',
+    URL : config.URL
   });
 });
 
@@ -298,10 +300,7 @@ router.get("/in-work-roads/:place", function(req, res) {
 });
 
 router.get('/encoding', function(req, res) {
-  var query = req.query;
-  
   var startPlace = JSON.parse(req.query.startPlace);
-  
   var endPlace = JSON.parse(req.query.endPlace);
 
   RoadEncoding
@@ -311,7 +310,6 @@ router.get('/encoding', function(req, res) {
     .exec(function(err, encoding) {
       if (err) throw err;
       res.json(encoding);
-
     });
 });
 
@@ -325,6 +323,7 @@ router.post('/encoding', function(req, res) {
     endPlace : body.endPlace,
     polyline : body.polyline
   }, function(err, encoding) {
+    if (err) throw err;
     res.status(200).send('Encoding created');
   });
   

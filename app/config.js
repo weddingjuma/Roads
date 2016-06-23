@@ -16,6 +16,9 @@ module.exports = {
     //Google Geocoder API limit
     geocodeLimit : 2,
     
+    //Milliseconds between API requests
+    apiRequestDelay : 210,
+    
     //MySQL configuration object
     mysqlConfig : {
         host     : process.env.IP,

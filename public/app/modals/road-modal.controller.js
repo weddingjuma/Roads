@@ -14,6 +14,6 @@ angular.module('Roads').controller('RoadModalController', function($uibModalInst
 
     ctrl.close = function() {
         $uibModalInstance.close();
-    }
+    };
 
 });

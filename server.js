@@ -44,31 +44,3 @@ var server = app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", f
 
   console.log("Server listening at", host + ":" + port);
 });
-
-
-// ===================================================
-// Socket configuration to communicate with client
-// ===================================================
-
-// TODO: Move to separate module!
-// var io = require("socket.io")(server);
-// io.set( 'origins', '*:*' );
-
-// io.on('connection', function(socket) {
-  
-//   console.log(socket.id + " connected");
-  
-//   socket.emit('welcome', {message: "welcome to node"});
-  
-//   socket.on('position', function(coords) {
-//     console.log(coords.lat + " | " + coords.lng);
-    
-//     ClosedRoad.getNearby(coords, 100, function(arr) {
-//     socket.emit("nearby", arr);
-//     });
-//   });
-  
-//   socket.on('disconnect', function(){
-//     console.log(socket.id + ' disconnected');
-//   });
-// });

@@ -20,7 +20,6 @@ function scrapeTables(callback) {
                 roadData[key] = roadData[key] == undefined ? null : roadData[key];
             }
         }
-        
         callback(error, roadData);
     });
 }

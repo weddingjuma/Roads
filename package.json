@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Real-time traffic events monitoring.",
   "main": "server.js",
-  "repository": "",
+  "repository": "https://github.com/radutatomir/Roads",
   "author": "Radu Tatomir <tatomir.radu@gmail.com>",
   "dependencies": {
     "async": "latest",

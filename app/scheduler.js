@@ -1,13 +1,13 @@
-var config      = require("./config");
-var request     = require("request");
-var cheerio     = require("cheerio");
-var loader      = require("./loader");
-var ClosedRoad  = require("./models/closedRoad");
-var SlowRoad    = require("./models/slowRoad");
-var InWorkRoad = require("./models/inWorkRoad");
-var WeatherClosedRoad = require("./models/weatherClosedRoad");
-var WeatherSlowedRoad = require("./models/weatherSlowedRoad");
-var async       = require("async");
+var config              = require("./config");
+var request             = require("request");
+var cheerio             = require("cheerio");
+var loader              = require("./loader");
+var ClosedRoad          = require("./models/closedRoad");
+var SlowRoad            = require("./models/slowRoad");
+var InWorkRoad          = require("./models/inWorkRoad");
+var WeatherClosedRoad   = require("./models/weatherClosedRoad");
+var WeatherSlowedRoad   = require("./models/weatherSlowedRoad");
+var async               = require("async");
 
 var lastUpdate = "";
 
@@ -30,13 +30,10 @@ function scheduler() {
 }
 
 function getLastPageUpdate(callback) {
-
     request(config.URL, function(error, response, html) {
-
         var $ = cheerio.load(html);
         var lastUpdate = $('h6').html();
         callback(error, lastUpdate);
-
     });
 }
 
