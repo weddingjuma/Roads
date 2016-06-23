@@ -54,15 +54,15 @@ angular.module('Roads').directive('roadEvent', ['QueueRequestsService', 'Encodin
             else {
                 EncodingService.getEncoding(request).then(function success(response) {
                     if (!response.data.length) {
+                        EncodingService.createEncoding(request).then(function(response) {
+                            console.log('encoding created', response);
+                        });
                         QRService.queueRequest(request).then(function success(response) {
 
                             var color = colors[scope.type];
                             ctrl.img = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:5%7Ccolor:0x" + color + "%7Cenc:" + response.routes[0].overview_polyline + "&markers=color:0x" + color + "%7Clabel:A%7C" + request.startPlace.lat + "," + request.startPlace.lng + "&markers=color:0x" + color + "%7Clabel:B%7C" + request.endPlace.lat + "," + request.endPlace.lng;
                             
                             request.polyline = response.routes[0].overview_polyline;
-                            
-                            // EncodingService.createEncoding(request);
-                            
                             
                         }, function error(response) {
 

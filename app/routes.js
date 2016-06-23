@@ -303,34 +303,15 @@ router.get('/encoding', function(req, res) {
   var startPlace = JSON.parse(req.query.startPlace);
   
   var endPlace = JSON.parse(req.query.endPlace);
-  
-  // var startPlace = {
-  //   lat : parseFloat(req.query['startPlace.lat']),
-  //   lng : parseFloat(req.query['startPlace.lng'])
-  // }
-  
-  // var endPlace = {
-  //   lat : parseFloat(req.query['endPlace.lat']),
-  //   lng : parseFloat(req.query['endPlace.lng'])
-  // }
-  
-  
-
-  // console.log(startPlace, endPlace);
 
   RoadEncoding
     .find({
-      
       "endPlace" : { "lng" : endPlace.lng, "lat" : endPlace.lat }, "startPlace" : { "lng" : startPlace.lng, "lat" : startPlace.lat }
-      
     })
     .exec(function(err, encoding) {
       if (err) throw err;
-    
-      
       res.json(encoding);
-      
-      
+
     });
 });
 
@@ -344,8 +325,7 @@ router.post('/encoding', function(req, res) {
     endPlace : body.endPlace,
     polyline : body.polyline
   }, function(err, encoding) {
-   // console.log(err);
-    //console.log(encoding);
+    res.status(200).send('Encoding created');
   });
   
 });
