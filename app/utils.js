@@ -136,8 +136,11 @@ module.exports = {
                     callback(coords);
                 }
             }
-            else
+            else {
                 console.log('Error while performing Query. -> ' + city);
+                callback(coords);
+            }
+                
         });
     }
 };
